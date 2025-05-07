@@ -24,16 +24,7 @@ builder.Services.AddScoped<Context>(sp =>
 builder.Services.AddScoped<IProductRepository, DbProductRepository>();
 builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-{
-    policy.WithOrigins("https://localhost:7108").WithMethods("GET").AllowAnyHeader();
-
-    // policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-}));
-
 var app = builder.Build();
-
-app.UseCors();
 
 app.MapGet("/", () => "Hello Products.Api!");
 

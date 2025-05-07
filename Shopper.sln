@@ -19,6 +19,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Domain", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Infrastructure", "src\MicroServices\ProductCatalog\ProductCatalog.Infrastructure\ProductCatalog.Infrastructure.csproj", "{913B87CC-23E1-4229-A3C0-46B0E4F73668}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{CBE57B5F-4C28-4805-9DB2-D6B4FB07E758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Api", "src\MicroServices\ShoppingCart\ShoppingCart.Api\ShoppingCart.Api.csproj", "{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Domain", "ShoppingCart.Domain\ShoppingCart.Domain.csproj", "{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Intrastructure", "src\MicroServices\ShoppingCart\ShoppingCart.Intrastructure\ShoppingCart.Intrastructure.csproj", "{A8197B60-77B5-46DF-AF5B-B10DA3B7261C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{604F9D06-ABEF-45AD-9CC9-9B78258D5458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpApiGateway", "src\ApiGateway\YarpApiGateway\YarpApiGateway.csproj", "{44357C97-C20C-4491-AF3A-77D571C776CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +53,22 @@ Global
 		{913B87CC-23E1-4229-A3C0-46B0E4F73668}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{913B87CC-23E1-4229-A3C0-46B0E4F73668}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{913B87CC-23E1-4229-A3C0-46B0E4F73668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8197B60-77B5-46DF-AF5B-B10DA3B7261C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8197B60-77B5-46DF-AF5B-B10DA3B7261C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8197B60-77B5-46DF-AF5B-B10DA3B7261C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8197B60-77B5-46DF-AF5B-B10DA3B7261C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44357C97-C20C-4491-AF3A-77D571C776CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44357C97-C20C-4491-AF3A-77D571C776CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44357C97-C20C-4491-AF3A-77D571C776CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44357C97-C20C-4491-AF3A-77D571C776CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +80,11 @@ Global
 		{233AB622-7840-4428-B164-2CB509BE5F96} = {85BCE45A-6FD7-4430-8945-DB4E88FF0610}
 		{67CB4FB2-255A-4DB7-852B-244A496C20C0} = {85BCE45A-6FD7-4430-8945-DB4E88FF0610}
 		{913B87CC-23E1-4229-A3C0-46B0E4F73668} = {85BCE45A-6FD7-4430-8945-DB4E88FF0610}
+		{CBE57B5F-4C28-4805-9DB2-D6B4FB07E758} = {B4694409-6341-4EDF-BA62-B912159A1F33}
+		{8E5A636D-B7B5-4211-9DDF-67B027E9CCC1} = {CBE57B5F-4C28-4805-9DB2-D6B4FB07E758}
+		{F12C12E7-9FA6-4B1B-88CE-C12A3947EB5B} = {CBE57B5F-4C28-4805-9DB2-D6B4FB07E758}
+		{A8197B60-77B5-46DF-AF5B-B10DA3B7261C} = {CBE57B5F-4C28-4805-9DB2-D6B4FB07E758}
+		{44357C97-C20C-4491-AF3A-77D571C776CE} = {604F9D06-ABEF-45AD-9CC9-9B78258D5458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2EAFFD8-08DA-43C2-83C1-EDF0CAD4CADB}
