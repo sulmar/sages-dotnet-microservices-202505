@@ -1,10 +1,16 @@
 using ShoppingCart.Domain.Abstractions;
 using ShoppingCart.Domain.Entities;
 using ShoppingCart.Intrastructure;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICartItemRepository, RedisCartItemRepository>();
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    return ConnectionMultiplexer.Connect("localhost:6379");
+});
 
 var app = builder.Build();
 
