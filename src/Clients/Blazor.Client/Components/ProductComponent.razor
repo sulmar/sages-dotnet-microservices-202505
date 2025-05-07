@@ -47,7 +47,7 @@
         
         try
         {            
-            var response = await Http.PostAsJsonAsync("api/cart", Product);
+            var response = await Http.PostAsJsonAsync("api/cart/items", Product);
             if (response.IsSuccessStatusCode)
             {
                 // Optionally, update UI or provide feedback to user
