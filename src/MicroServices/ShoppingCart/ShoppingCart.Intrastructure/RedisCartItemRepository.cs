@@ -7,14 +7,12 @@ namespace ShoppingCart.Intrastructure;
 // dotnet add package StackExchange.Redis
 public class RedisCartItemRepository : ICartItemRepository
 {
-    private readonly IConnectionMultiplexer _connectionMultiplexer;
+    private readonly IDatabase db;
 
-    public RedisCartItemRepository(IConnectionMultiplexer connectionMultiplexer)
+    public RedisCartItemRepository(IDatabase db)
     {
-        _connectionMultiplexer = connectionMultiplexer;
+        this.db = db;
     }
-
-    private IDatabase db => _connectionMultiplexer.GetDatabase();
 
     public async Task AddAsync(CartItem item)
     {

@@ -12,6 +12,12 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     return ConnectionMultiplexer.Connect("localhost:6379");
 });
 
+builder.Services.AddSingleton<IDatabase>(sp =>
+{
+    var connectionMultiplexer = sp.GetRequiredService<IConnectionMultiplexer>();
+    return connectionMultiplexer.GetDatabase();
+});
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello ShoppingCart Api!");
