@@ -16,12 +16,17 @@ public class RedisCartItemRepository : ICartItemRepository
 
     public async Task AddAsync(CartItem item)
     {
+        // TODO: Pobierz sessionId z HttpContext.Session
         string sessionId = "001abc";
 
         string key = $"cart:{sessionId}";
         string field = $"product:{item.Id}";
 
+        // Zwiększ ilość produktu w koszyku
         await db.HashIncrementAsync(key, field, item.Quantity);
-        // await db.StringGetSetExpiryAsync(key, TimeSpan.FromSeconds(30));
+
+        // Ustaw TTL dla klucza (np. 3 minuty)
+        await db.KeyExpireAsync(key, TimeSpan.FromMinutes(3));
+        
     }
 }
