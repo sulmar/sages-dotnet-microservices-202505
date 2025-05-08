@@ -26,6 +26,8 @@ builder.Services.AddScoped<Context>(sp =>
 builder.Services.AddScoped<IProductRepository, DbProductRepository>();
 builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
 
+builder.Services.AddSingleton<ProductMapper>();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello Products.Api!");
@@ -34,9 +36,9 @@ app.MapGet("/ping", () => "Pong!");
 
 app.MapGet("/api/products", async (IProductRepository repository) => await repository.GetAllAsync());
 
-app.MapPost("/api/products", async (IProductRepository repository, ProductDto productDto) =>
+app.MapPost("/api/products", async (IProductRepository repository, ProductDto productDto, ProductMapper mapper) =>
 {
-    Product product = productDto.MapToEntity();
+    Product product = mapper.MapToEntity(productDto);
 
     return Results.Created();
 });

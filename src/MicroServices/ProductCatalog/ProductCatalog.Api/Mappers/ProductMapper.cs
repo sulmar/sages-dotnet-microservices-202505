@@ -1,28 +1,14 @@
 ﻿using ProductCatalog.Api.DTOs;
 using ProductCatalog.Domain.Entities;
+using Riok.Mapperly.Abstractions;
 
 namespace ProductCatalog.Api.Mappers;
 
-public static class ProductMapper
+// dotnet add package Riok.Mapperly
+
+[Mapper]
+public partial class ProductMapper
 {
-    public static ProductDto MapToDto(this Product product)
-    {
-        return new ProductDto
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            DiscountedPrice = product.DiscountedPrice
-        };
-    }
-    public static Product MapToEntity(this ProductDto productDto)
-    {
-        return new Product
-        {
-            Id = productDto.Id,
-            Name = productDto.Name,
-            Price = productDto.Price,
-            DiscountedPrice = productDto.DiscountedPrice
-        };
-    }
+    public partial ProductDto MapToDto(Product product);
+    public partial Product MapToEntity(ProductDto productDto);
 }
