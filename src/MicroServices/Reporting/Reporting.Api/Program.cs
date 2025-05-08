@@ -21,9 +21,13 @@ app.MapGet("/", () => "Hello Reporting.Api!");
 
 app.MapGet("/api/reports/{reportId}", async (string reportId, IProductCatalogService productCatalogService, IOrderingService orderingService) =>
 {
+    var productsTask = productCatalogService.GetAllAsync();
+    var ordersCountTask = orderingService.GetOrdersCountAsync();
 
-    var products = await productCatalogService.GetAllAsync();
-    var ordersCount = await orderingService.GetOrdersCountAsync();
+    await Task.WhenAll(productsTask, ordersCountTask);
+
+    var products = productsTask.Result;
+    var ordersCount = ordersCountTask.Result;
 
     var salesReport = new SalesReport(reportId, products.Count, ordersCount);
 
