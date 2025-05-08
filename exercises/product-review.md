@@ -1,7 +1,7 @@
 # 🧩 Zadanie: Mikrousługa ProductReviewService
 
 ## 🎯 Cel:
-Zaprojektuj i zaimplementuj nową mikrousługę REST API `ProductReviewService`, która umożliwia dodawanie i pobieranie opinii o produktach.
+Zaprojektuj i zaimplementuj nową mikrousługę REST API `ProductReview`, która umożliwia dodawanie i pobieranie opinii o produktach.
 
 ## 📌 Wymagania funkcjonalne:
 
