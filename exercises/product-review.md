@@ -24,9 +24,9 @@ Zaprojektuj i zaimplementuj nową mikrousługę REST API ProductReviewService, k
 
 - Mikrousługa w .NET 8 z REST API (np. Minimal API lub ASP.NET Core)
 - Można użyć:
- - SqlServer – przechowywanie rekordów z opiniami
- - MongoDB – przechowywanie dokumentów z opiniami
- - Redis – jako cache opinii dla szybszego odczytu (`reviews:{productId}`)
+  - SqlServer – przechowywanie rekordów z opiniami
+  - MongoDB – przechowywanie dokumentów z opiniami
+  - Redis – jako cache opinii dla szybszego odczytu (`reviews:{productId}`)
 
 
 ## 💡 Rozszerzenia (opcjonalnie):
