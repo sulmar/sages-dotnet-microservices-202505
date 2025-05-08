@@ -26,7 +26,6 @@ public class RedisCartItemRepository : ICartItemRepository
         await db.HashIncrementAsync(key, field, item.Quantity);
 
         // Ustaw TTL dla klucza (np. 3 minuty)
-        await db.KeyExpireAsync(key, TimeSpan.FromMinutes(3));
-        
+        await db.KeyExpireAsync(key, TimeSpan.FromMinutes(3));        
     }
 }
