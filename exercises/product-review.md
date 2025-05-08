@@ -13,8 +13,7 @@ Zaprojektuj i zaimplementuj nową mikrousługę REST API ProductReviewService, k
 {
   "productId": "123",
   "userId": "456",
-  "rating": 4,
-  "comment": "Dobry produkt!"
+  "rating": 4  
 }
 ```
 
