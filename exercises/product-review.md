@@ -33,6 +33,7 @@ Zaprojektuj i zaimplementuj nową mikrousługę REST API `ProductReviewService`,
 - Dodaj walidację, że `rating` musi być liczbą od `1` do `5`
 - Dodaj walidację, że `productId` powinien istnieć w `ProductCatalog` (można to zasymulować)
 - Oblicz średnią ocenę produktu i udostępnij jako `GET /api/reviews/{productId}/average-rating`
+- Dodaj wysyłanie opinii do serwisu w komponencie `ProductComponent.razor` w metodzie `OnRatingChanged()`
 
 ## 🧪 Przykładowe testowe dane:
 - Produkt: productId = 123
