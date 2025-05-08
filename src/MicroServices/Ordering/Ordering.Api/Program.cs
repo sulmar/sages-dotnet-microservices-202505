@@ -9,6 +9,8 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello Ordering.Api!");
 
+app.MapGet("/api/orders/count", () => Results.Ok(100));
+
 app.MapPost("/api/orders", async (OrderItem[] reqest) =>
 {
     var orderId = "ZAM1/2025";
