@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient("ProductCatalog", client =>
@@ -30,6 +32,15 @@ app.MapGet("/api/reports/{reportId}", async (string reportId, IHttpClientFactory
 
     return Results.Ok(salesReport);
 
+});
+
+app.MapPost("/api/largereport", async () =>
+{
+    // TODO: Wrzucenie do kolejki
+    ConcurrentQueue<SalesReport> reports = new ConcurrentQueue<SalesReport>();
+    reports.Enqueue(new SalesReport("ZAM1/2025", 100, 200));
+
+    return Results.Accepted();
 });
 
 app.Run();
