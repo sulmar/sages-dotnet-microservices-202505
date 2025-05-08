@@ -21,7 +21,15 @@ message PaymentResponse {
   string reason = 2;
 }
 
+message PaymentStage {
+  string stage = 1;
+  string description = 2;
+  int32 transaction_id = 3;
+}
+
 service PaymentService {
   rpc Process (PaymentRequest) returns (PaymentResponse);
+
+  rpc ProcessStream (PaymentRequest) returns (stream PaymentStage);
 
 }

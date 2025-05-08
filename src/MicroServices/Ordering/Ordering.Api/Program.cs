@@ -1,3 +1,4 @@
+using Grpc.Core;
 using Grpc.Net.Client;
 using PaymentService.Grpc;
 using System.Security.Cryptography.Xml;
@@ -20,7 +21,19 @@ app.MapPost("/api/orders", async (OrderItem[] reqest) =>
 
     var paymentClient = new PaymentServiceClient(channel);
 
-   var response = await paymentClient.ProcessAsync(new PaymentRequest
+    var call = paymentClient.ProcessStream(new PaymentRequest
+    {
+        Amount = totalAmount,
+        PaymentMethod = paymentMethod,
+        OrderId = orderId
+    });
+
+    await foreach(var stage in call.ResponseStream.ReadAllAsync<PaymentStage>())
+    {
+        Console.WriteLine($"Stage: {stage.Stage}, Description: {stage.Description}");
+    }    
+
+    var response = await paymentClient.ProcessAsync(new PaymentRequest
     {
         Amount = totalAmount,
         PaymentMethod = paymentMethod,
