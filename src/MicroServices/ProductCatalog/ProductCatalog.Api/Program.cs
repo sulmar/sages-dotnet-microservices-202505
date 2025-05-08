@@ -1,3 +1,5 @@
+using ProductCatalog.Api.DTOs;
+using ProductCatalog.Api.Mappers;
 using ProductCatalog.Domain.Abstractions;
 using ProductCatalog.Domain.Entities;
 using ProductCatalog.Infrastructure;
@@ -31,5 +33,12 @@ app.MapGet("/", () => "Hello Products.Api!");
 app.MapGet("/ping", () => "Pong!");
 
 app.MapGet("/api/products", async (IProductRepository repository) => await repository.GetAllAsync());
+
+app.MapPost("/api/products", async (IProductRepository repository, ProductDto productDto) =>
+{
+    Product product = productDto.MapToEntity();
+
+    return Results.Created();
+});
 
 app.Run();
