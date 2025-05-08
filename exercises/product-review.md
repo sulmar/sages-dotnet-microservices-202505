@@ -18,10 +18,6 @@ Zaprojektuj i zaimplementuj nową mikrousługę REST API ProductReviewService, k
 }
 ```
 
-2. Walidacja:
-
-- rating musi być liczbą od 1 do 5
-- `productId` powinien istnieć w `ProductCatalog` (można to zasymulować)
 
 
 
@@ -35,8 +31,9 @@ Zaprojektuj i zaimplementuj nową mikrousługę REST API ProductReviewService, k
 
 
 ## 💡 Rozszerzenia (opcjonalnie):
-- Oblicz średnią ocenę produktu i udostępnij jako GET /api/reviews/{productId}/average-rating
-
+- Dodaj walidację, że `rating` musi być liczbą od `1` do `5`
+- Dodaj walidację, że `productId` powinien istnieć w `ProductCatalog` (można to zasymulować)
+- Oblicz średnią ocenę produktu i udostępnij jako `GET /api/reviews/{productId}/average-rating`
 
 ## 🧪 Przykładowe testowe dane:
 - Produkt: productId = 123
