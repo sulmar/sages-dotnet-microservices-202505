@@ -1,13 +1,15 @@
+using Reporting.Api.Abstractions;
+using Reporting.Api.Services;
 using System.Collections.Concurrent;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient("ProductCatalog", client =>
+builder.Services.AddHttpClient<IProductCatalogService, ApiProductCatalogService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7291");
 });
 
-builder.Services.AddHttpClient("Ordering", client =>
+builder.Services.AddHttpClient<IOrderingService, ApiOrderingService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7263");
 });
@@ -17,18 +19,13 @@ var app = builder.Build();
 app.MapGet("/", () => "Hello Reporting.Api!");
 
 
-app.MapGet("/api/reports/{reportId}", async (string reportId, IHttpClientFactory factory) =>
+app.MapGet("/api/reports/{reportId}", async (string reportId, IProductCatalogService productCatalogService, IOrderingService orderingService) =>
 {
-    var productCatalogClient = factory.CreateClient("ProductCatalog");
-    var orderingClient = factory.CreateClient("Ordering");
 
-    var productCatalogResponse = await productCatalogClient.GetAsync("/api/products");
-    var products = await productCatalogResponse.Content.ReadFromJsonAsync<List<ProductDto>>();
+    var products = await productCatalogService.GetAllAsync();
+    var ordersCount = await orderingService.GetOrdersCountAsync();
 
-    var orderingResponse = await orderingClient.GetAsync("/api/orders/count");
-    var ordersCount = await orderingResponse.Content.ReadAsStringAsync();
-
-    var salesReport = new SalesReport(reportId, products.Count, int.Parse(ordersCount));
+    var salesReport = new SalesReport(reportId, products.Count, ordersCount);
 
     return Results.Ok(salesReport);
 
