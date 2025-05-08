@@ -58,7 +58,12 @@ app.MapPost("/api/cart/checkout", async (IConnectionMultiplexer connectionMultip
 
     var httpClient = factory.CreateClient("OrderingApi");
 
-    await httpClient.PostAsJsonAsync("/api/orders", orderItems);
+    var response = await httpClient.PostAsJsonAsync("/api/orders", orderItems);
+
+    if (!response.IsSuccessStatusCode)
+    {
+        return Results.BadRequest(new { Error = "Failed to create order" });
+    }
 
     return Results.Ok(cartItems);
 });
