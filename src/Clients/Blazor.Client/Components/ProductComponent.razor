@@ -16,6 +16,10 @@
             <div class="text-center">
                 <!-- Product name-->
                 <h5 class="fw-bolder">@Product.Name</h5>
+
+                <!-- Star Rating -->
+                <StarRating Rating="@Rating" RatingChanged="@OnRatingChanged" />
+
                 <!-- Product price-->
                 @if(Product.IsSale)
                 {
@@ -64,6 +68,17 @@
             // Handle error (e.g., display error message to user)
             Console.WriteLine($"Error adding product to cart: {ex.Message}");
         }
+    }
+
+    private int Rating = 0;
+
+    private Task OnRatingChanged(int value)
+    {
+        Rating = value;
+        Console.WriteLine($"User rated product '{Product.Name}' with {Rating} stars.");
+
+        // TODO: Dodaj wysy³kê do serwisu
+        return Task.CompletedTask;
     }
     
 }

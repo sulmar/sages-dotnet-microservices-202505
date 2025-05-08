@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<div class="star-rating">
+    @for (int i = 1; i <= 5; i++)  
+    {
+        <span class="star" style="cursor:pointer" @onclick="() => SetRating(i)">
+            @if (i <= Rating)
+            {
+                <i class="bi bi-star-fill text-warning"></i>
+            }
+            else
+            {
+                <i class="bi bi-star text-muted"></i>
+            }
+        </span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int Rating { get; set; }
+
+    [Parameter]
+    public EventCallback<int> RatingChanged { get; set; }
+
+    private async Task SetRating(int value)
+    {
+        Rating = value;
+        await RatingChanged.InvokeAsync(value);
+    }
+}
