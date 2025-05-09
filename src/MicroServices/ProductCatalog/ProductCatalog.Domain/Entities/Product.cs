@@ -25,17 +25,19 @@ public class Product : BaseEntity
     public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public decimal? DiscountedPrice { get; set; }
+    public string Owner { get; }
 
     public Product() : base()
     {
         
     }
 
-    public Product(int id, string name, decimal price, decimal? discountedPrice = null) : base(id)
+    public Product(int id, string name, decimal price, decimal? discountedPrice = null, string owner = null) : base(id)
     {
         Name = name;
         Price = price;
         DiscountedPrice = discountedPrice;
+        Owner = owner;
     }
 }
 

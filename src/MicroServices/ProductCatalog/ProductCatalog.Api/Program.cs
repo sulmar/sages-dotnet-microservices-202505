@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using ProductCatalog.Api.Authorization;
 using ProductCatalog.Api.DTOs;
 using ProductCatalog.Api.HealthChecks;
 using ProductCatalog.Api.Mappers;
@@ -68,7 +70,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("ProductOwner", policy=>
+    {
+        policy.Requirements.Add(new ProductOwnerRequirement());
+    })
+    .AddPolicy("Adult", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.Requirements.Add(new MinimumAgeRequirement(18));
+    });
+
+
 builder.Services.AddAuthorization();
+
+builder.Services.AddTransient<IAuthorizationHandler, MinimumAgeHandler>();
+builder.Services.AddTransient<IAuthorizationHandler, ProductOwnerHandler>();
+
 
 var app = builder.Build();
 
@@ -80,14 +99,31 @@ app.MapGet("/", () => "Hello Products.Api!");
 
 app.MapGet("/ping", () => "Pong!");
 
+// [Authorize(Roles = "Admin")]
+
 app.MapGet("/api/products", async (IProductRepository repository) => await repository.GetAllAsync())
-    .RequireAuthorization();
+    .RequireAuthorization("Adult");
 
 app.MapPost("/api/products", async (IProductRepository repository, ProductDto productDto, ProductMapper mapper) =>
 {
     Product product = mapper.MapToEntity(productDto);
 
     return Results.Created();
+});
+
+
+app.MapPut("/api/products/{id}", async (IProductRepository repository, int id, ProductDto productDto, ProductMapper mapper, IAuthorizationService authorizationService, HttpContext context ) =>
+{
+    var product = mapper.MapToEntity(productDto);
+
+    var result = await authorizationService.AuthorizeAsync(context.User, product, "ProductOwner");
+
+    if (!result.Succeeded)
+    {
+        return Results.Forbid();
+    }
+
+    return Results.NoContent();
 });
 
 // app.MapHealthChecks("/health");

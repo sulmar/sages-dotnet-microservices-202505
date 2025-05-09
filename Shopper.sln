@@ -47,6 +47,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monitoring", "Monitoring", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitoring.Web", "src\Monitoring\Monitoring.Web\Monitoring.Web.csproj", "{D276D965-813F-FD81-9F8C-B8CB5912B8A1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityProvider", "IdentityProvider", "{C4BCC49D-BC9A-40A3-8F73-811777FDD3F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.Api", "src\IdentityProvider\IdentityProvider.Api\IdentityProvider.Api.csproj", "{02F51E0B-34D6-4D51-BB13-8559C59E0A9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +105,10 @@ Global
 		{D276D965-813F-FD81-9F8C-B8CB5912B8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D276D965-813F-FD81-9F8C-B8CB5912B8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D276D965-813F-FD81-9F8C-B8CB5912B8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F51E0B-34D6-4D51-BB13-8559C59E0A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F51E0B-34D6-4D51-BB13-8559C59E0A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F51E0B-34D6-4D51-BB13-8559C59E0A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F51E0B-34D6-4D51-BB13-8559C59E0A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +132,7 @@ Global
 		{5EAD3C6E-FA94-4AC2-8689-A89B48A85221} = {B4694409-6341-4EDF-BA62-B912159A1F33}
 		{73F962A4-1D76-425F-B0E6-B7B440DDE1D2} = {5EAD3C6E-FA94-4AC2-8689-A89B48A85221}
 		{D276D965-813F-FD81-9F8C-B8CB5912B8A1} = {AEB2AF5E-67BC-4ABB-A12A-E9DEF9E743D5}
+		{02F51E0B-34D6-4D51-BB13-8559C59E0A9B} = {C4BCC49D-BC9A-40A3-8F73-811777FDD3F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2EAFFD8-08DA-43C2-83C1-EDF0CAD4CADB}
