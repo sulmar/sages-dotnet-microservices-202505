@@ -16,6 +16,8 @@ builder.Services.AddHealthChecksUI(options =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 
 // app.MapGet("/monitoring", () => "Hello Monitoring.Api!");
