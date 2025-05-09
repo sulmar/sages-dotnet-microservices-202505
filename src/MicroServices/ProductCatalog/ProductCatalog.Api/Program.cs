@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using ProductCatalog.Api.DTOs;
@@ -48,14 +49,39 @@ builder.Services.AddHealthChecks()
     )
     .AddCheck<CustomHealthCheck>("Custom", HealthStatus.Degraded);
 
+string secretKey = "a-string-secret-at-least-256-bits-long";
+
+// dotnet add pacage Microsoft.AspNetCore.Authentication.JwtBearer
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://sages.pl",
+            ValidAudience = "https://example.com",
+            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretKey))
+        };
+    });
+
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapGet("/", () => "Hello Products.Api!");
 
 
 app.MapGet("/ping", () => "Pong!");
 
-app.MapGet("/api/products", async (IProductRepository repository) => await repository.GetAllAsync());
+app.MapGet("/api/products", async (IProductRepository repository) => await repository.GetAllAsync())
+    .RequireAuthorization();
 
 app.MapPost("/api/products", async (IProductRepository repository, ProductDto productDto, ProductMapper mapper) =>
 {
