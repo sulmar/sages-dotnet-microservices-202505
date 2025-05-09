@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using ProductCatalog.Api.DTOs;
+using ProductCatalog.Api.HealthChecks;
 using ProductCatalog.Api.Mappers;
 using ProductCatalog.Domain.Abstractions;
 using ProductCatalog.Domain.Entities;
@@ -44,7 +45,8 @@ builder.Services.AddHealthChecks()
             return HealthCheckResult.Unhealthy("Odd minute");
         }
      }
-    );
+    )
+    .AddCheck<CustomHealthCheck>("Custom", HealthStatus.Degraded);
 
 var app = builder.Build();
 
