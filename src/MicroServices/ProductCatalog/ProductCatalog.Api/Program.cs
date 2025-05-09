@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using ProductCatalog.Api.DTOs;
 using ProductCatalog.Api.Mappers;
 using ProductCatalog.Domain.Abstractions;
@@ -28,9 +30,26 @@ builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
 
 builder.Services.AddSingleton<ProductMapper>();
 
+// Health Check
+builder.Services.AddHealthChecks()
+    .AddCheck("Ping", () => HealthCheckResult.Healthy("Pong"))
+    .AddCheck("Random", () =>
+    {
+        if (DateTime.Now.Minute % 2 == 0)
+        {
+            return HealthCheckResult.Healthy("Even minute");
+        }
+        else
+        {
+            return HealthCheckResult.Unhealthy("Odd minute");
+        }
+     }
+    );
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello Products.Api!");
+
 
 app.MapGet("/ping", () => "Pong!");
 
@@ -41,6 +60,18 @@ app.MapPost("/api/products", async (IProductRepository repository, ProductDto pr
     Product product = mapper.MapToEntity(productDto);
 
     return Results.Created();
+});
+
+// app.MapHealthChecks("/health");
+
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(report);
+    }
 });
 
 app.Run();
