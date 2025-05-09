@@ -4,5 +4,5 @@ namespace ShoppingCart.Domain.Abstractions;
 
 public interface ICartItemRepository
 {
-    Task AddAsync(CartItem item);
+    Task AddAsync(string sessionId, CartItem item);
 }

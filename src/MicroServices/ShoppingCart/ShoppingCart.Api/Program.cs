@@ -25,25 +25,53 @@ builder.Services.AddHttpClient("OrderingApi", client =>
     client.BaseAddress = new Uri("https://localhost:7263");
 });
 
+// Dodaj obs³ugê sesji
+builder.Services.AddDistributedMemoryCache(); // Przechowywanie sesji w pamiêci
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Czas wygaœniêcia sesji
+    options.Cookie.HttpOnly = true; // Bezpieczeñstwo ciasteczka
+    options.Cookie.IsEssential = true; // Wymagane ciasteczko
+});
+
 var app = builder.Build();
+
+// U¿yj middleware sesji
+app.UseSession();
 
 app.MapGet("/", () => "Hello ShoppingCart Api!");
 
 app.MapGet("/api/health", () => Results.Ok("Healthy"));
 
-app.MapPost("/api/cart/items", async (CartItem item, ICartItemRepository repository) =>
+app.MapPost("/api/cart/items", async (CartItem item, ICartItemRepository repository, HttpContext context) =>
 {
-    await repository.AddAsync(item);
+    // Pobierz sessionId z HttpContext.Session
+    string sessionId = context.Session.Id;
+
+    // Jeœli sessionId jest pusty, u¿yj sta³ego sessionId
+    if (string.IsNullOrEmpty(sessionId))
+    {
+        sessionId = "default-session-001"; // Sta³y sessionId jako fallback
+    }
+
+    await repository.AddAsync(sessionId, item);
 
     // Simulate adding an item to the cart
     return Results.Created($"/api/cart/{item}", new { Item = item });
 });
 
-app.MapPost("/api/cart/checkout", async (IConnectionMultiplexer connectionMultiplexer, IHttpClientFactory factory) =>
+app.MapPost("/api/cart/checkout", async (IConnectionMultiplexer connectionMultiplexer, IHttpClientFactory factory, HttpContext context) =>
 {
     var db = connectionMultiplexer.GetDatabase();
 
-    string sessionId = "001abc";
+    // Pobierz sessionId
+    var sessionId = context.Session.Id;
+
+    // Jeœli sessionId jest pusty, u¿yj sta³ego sessionId
+    if (string.IsNullOrEmpty(sessionId))
+    {
+        sessionId = "default-session-001"; // Sta³y sessionId jako fallback
+    }
 
     string key = $"cart:{sessionId}";
 

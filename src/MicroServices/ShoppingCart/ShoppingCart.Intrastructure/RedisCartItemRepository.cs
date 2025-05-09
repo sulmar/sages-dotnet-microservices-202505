@@ -14,11 +14,8 @@ public class RedisCartItemRepository : ICartItemRepository
         this.db = db;
     }
 
-    public async Task AddAsync(CartItem item)
+    public async Task AddAsync(string sessionId, CartItem item)
     {
-        // TODO: Pobierz sessionId z HttpContext.Session
-        string sessionId = "001abc";
-
         string key = $"cart:{sessionId}";
         string field = $"product:{item.Id}";
 
