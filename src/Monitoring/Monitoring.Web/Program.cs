@@ -10,12 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecksUI(options =>
 {
     options.AddHealthCheckEndpoint("ProductCatalog", "https://localhost:7291/health");
+    options.AddHealthCheckEndpoint("ShoppingCart", "https://localhost:7285/health");
 }).AddSqliteStorage("Data Source=healthchecks.db;Pooling=true;Cache=Shared;");
 
 //.AddInMemoryStorage();
 
 var app = builder.Build();
-
+ 
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
