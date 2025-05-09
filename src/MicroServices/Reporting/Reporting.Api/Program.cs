@@ -4,15 +4,19 @@ using System.Collections.Concurrent;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// dotnet add package Microsoft.Extensions.ServiceDiscovery
+// Dodaj odnajdywanie us³ug
+builder.Services.AddServiceDiscovery();
+
 builder.Services.AddHttpClient<IProductCatalogService, ApiProductCatalogService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7291");
-});
+    client.BaseAddress = new Uri("https+http://catalog");
+}).AddServiceDiscovery();
 
 builder.Services.AddHttpClient<IOrderingService, ApiOrderingService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7263");
-});
+    client.BaseAddress = new Uri("https+http://ordering");
+}).AddServiceDiscovery();
 
 var app = builder.Build();
 

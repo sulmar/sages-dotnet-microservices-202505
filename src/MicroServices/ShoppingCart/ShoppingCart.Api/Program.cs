@@ -18,12 +18,16 @@ builder.Services.AddSingleton<IDatabase>(sp =>
     return connectionMultiplexer.GetDatabase();
 });
 
+// dotnet add package Microsoft.Extensions.ServiceDiscovery
+// Dodaj odnajdywanie us³ug
+builder.Services.AddServiceDiscovery();
+
 builder.Services.AddHttpClient("OrderingApi", client =>
 {
     // TODO: Zastosuj mechanizm atomatycznego odkrywania us³ug
     // https://learn.microsoft.com/en-us/dotnet/core/extensions/service-discovery?tabs=dotnet-cli
-    client.BaseAddress = new Uri("https://localhost:7263");
-});
+    client.BaseAddress = new Uri("https://ordering"); // 
+}).AddServiceDiscovery();
 
 // Dodaj obs³ugê sesji
 builder.Services.AddDistributedMemoryCache(); // Przechowywanie sesji w pamiêci
