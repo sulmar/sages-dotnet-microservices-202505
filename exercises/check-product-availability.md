@@ -8,7 +8,7 @@ W Twoim systemie istnieją usługi:
 
 ## 🎯 Cel:
 1. Dodaj obsługę stanu magazynowego (`Stock`) w `ProductCatalog`
-2. Utwórz interfejs gRPC, który umożliwia:
+2. Utwórz interfejs **gRPC**, który umożliwia:
   - sprawdzenie dostępności produktów - endpoint `CheckAvailability`
   - rezerwację produktu na potrzeby zamówienia `ReserveStock` 
 
@@ -16,4 +16,7 @@ W Twoim systemie istnieją usługi:
   - Jeśli tak — zarezerwować je.
   - Jeśli nie — odrzucić zamówienie.
 
-
+## 💡 Rozszerzenia (opcjonalnie):
+1. Utwórz interfejs **REST API**, który umożliwia:
+- sprawdzenie dostępności produktów - `GET /products/{id}/availability`
+- rezerwację produktu na potrzeby zamówienia - endpoint `POST /products/{id}/reservations`
