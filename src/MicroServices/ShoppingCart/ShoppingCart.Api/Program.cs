@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
 using ShoppingCart.Domain.Abstractions;
 using ShoppingCart.Domain.Entities;
 using ShoppingCart.Intrastructure;
@@ -22,6 +24,7 @@ builder.Services.AddSingleton<IDatabase>(sp =>
 // Dodaj odnajdywanie us³ug
 builder.Services.AddServiceDiscovery();
 
+
 builder.Services.AddHttpClient("OrderingApi", client =>
 {
     // TODO: Zastosuj mechanizm atomatycznego odkrywania us³ug
@@ -37,6 +40,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Bezpieczeñstwo ciasteczka
     options.Cookie.IsEssential = true; // Wymagane ciasteczko
 });
+
+builder.Services.AddHealthChecks()
+    .AddRedis(sp => sp.GetRequiredService<IConnectionMultiplexer>());
 
 var app = builder.Build();
 
@@ -99,6 +105,18 @@ app.MapPost("/api/cart/checkout", async (IConnectionMultiplexer connectionMultip
 
     return Results.Ok(cartItems);
 });
+
+
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(report);
+    }
+});
+
 
 app.Run();
 

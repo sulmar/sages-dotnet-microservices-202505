@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks" Version="1.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="8.2.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.37" />
   </ItemGroup>
